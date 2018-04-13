@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import SelectionBox from './SelectionBox';
+import $ from 'jquery';
 import './App.css';
+import axios from 'axios'
 
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -13,9 +16,26 @@ class App extends Component {
       spotifyApi.setAccessToken(token);
     }
     this.state = {
-      loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' }
+      // state thing you want to set
+      titles: [],
+      loggedIn: token ? true : false
     }
+  }
+
+  // var sub = 'Music'
+  // var str = 'https://www.reddit.com/r/' + sub + '/.json'
+
+  // use for data fetching
+  componentDidMount = () => {
+    axios.get('https://www.reddit.com/r/frenchelectro/.json')
+      .then(res => {
+        let threads = res.data.data.children
+        let titles = threads.map(thread => thread.data.title)
+        this.setState({titles})
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   getHashParams() {
@@ -30,34 +50,16 @@ class App extends Component {
     return hashParams;
   }
 
-  //make function to make new playlist
-  getNowPlaying(){
-    spotifyApi.getMyCurrentPlaybackState()
-      .then((response) => {
-        this.setState({
-          nowPlaying: { 
-              name: response.item.name, 
-              albumArt: response.item.album.images[0].url
-            }
-        });
-      })
-  }
-  
   render() {
+    debugger
+    let titles = this.state.titles.map(title => <p>{title}</p>)
     return (
       <div className="App">
         <a href='http://localhost:8888/login' > Login to Spotify </a>
-        <div>
-          Now Playing: { this.state.nowPlaying.name }
-        </div>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }}/>
-        </div>
-        { this.state.loggedIn &&
-          <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-          </button>
-        }
+        <h1>{ this.state.loggedIn == true ? "logged in" : "not logged in" }</h1>
+        <a href='http://localhost:8888/playlists'> Get playlists </a>
+        <SelectionBox />
+        {titles}
       </div>
     );
   }
