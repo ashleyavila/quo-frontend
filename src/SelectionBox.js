@@ -6,7 +6,7 @@ class SelectionBox extends Component {
     let i = 1
     return (
       <ButtonToolbar>
-        <SplitButton bsStyle="info" bsSize="large" title="/r/">
+        <SplitButton bsStyle="default" bsSize="large" title="/r/">
           <MenuItem eventKey="1">/r/Complextro</MenuItem>
           <MenuItem eventKey="2">/r/breakbeat</MenuItem>
           <MenuItem eventKey="3">/r/boogiemusic</MenuItem>

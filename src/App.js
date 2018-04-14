@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './Header';
 import SelectionBox from './SelectionBox';
 import $ from 'jquery';
 import './App.css';
@@ -55,6 +56,7 @@ class App extends Component {
     let titles = this.state.titles.map(title => <p>{title}</p>)
     return (
       <div className="App">
+        <Header />
         <a href='http://localhost:8888/login' > Login to Spotify </a>
         <h1>{ this.state.loggedIn == true ? "logged in" : "not logged in" }</h1>
         <a href='http://localhost:8888/playlists'> Get playlists </a>

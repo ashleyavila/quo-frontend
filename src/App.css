@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-color: black;
+  color: white;
+}
+.btn{
+  background-color: orange;
 }
 
 .App-logo {
