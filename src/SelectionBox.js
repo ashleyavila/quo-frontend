@@ -1,29 +1,39 @@
 import React, { Component } from 'react';
-import { ButtonToolbar, SplitButton, MenuItem, Button } from 'react-bootstrap';
+import { ButtonToolbar, SplitButton, MenuItem} from 'react-bootstrap';
 
 class SelectionBox extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e) {
+    this.props.updateTitle(e.currentTarget.textContent)
+  }
+
   render() {
-    let i = 1
     return (
       <ButtonToolbar>
-        <SplitButton bsStyle="default" bsSize="large" title="/r/">
-          <MenuItem eventKey="1">/r/Complextro</MenuItem>
-          <MenuItem eventKey="2">/r/breakbeat</MenuItem>
-          <MenuItem eventKey="3">/r/boogiemusic</MenuItem>
-          <MenuItem eventKey="4">/r/AtmosphericDnB</MenuItem>
-          <MenuItem eventKey="5">/r/ambientmusic</MenuItem>
-          <MenuItem eventKey="6">/r/AcidHouse</MenuItem>
-          <MenuItem eventKey="7">/r/Electropop</MenuItem>
-          <MenuItem eventKey="8">/r/electronicmusic</MenuItem>
-          <MenuItem eventKey="9">/r/darkstep</MenuItem>
-          <MenuItem eventKey="10">/r/deephouse</MenuItem>
-          <MenuItem eventKey="11">/r/dubstep</MenuItem>
-          <MenuItem eventKey="12">/r/EDM</MenuItem>
-          <MenuItem eventKey="13">/r/EBM</MenuItem>
-          <MenuItem eventKey="14">/r/electronicdancemusic</MenuItem>
-          <MenuItem eventKey="15">/r/ElectronicJazz</MenuItem>
-          <MenuItem eventKey="16">/r/electrohouse</MenuItem>
-          <MenuItem eventKey="17">/r/electronicmagic</MenuItem>
+        <SplitButton bsStyle="default" bsSize="large" title={this.props.subTitle} ref="menu">
+          <MenuItem eventKey="1" onClick={this.handleClick}>/r/Complextro</MenuItem>
+          <MenuItem eventKey="2" onClick={this.handleClick}>/r/breakbeat</MenuItem>
+          <MenuItem eventKey="3" onClick={this.handleClick}>/r/boogiemusic</MenuItem>
+          <MenuItem eventKey="4" onClick={this.handleClick}>/r/AtmosphericDnB</MenuItem>
+          <MenuItem eventKey="5" onClick={this.handleClick}>/r/ambientmusic</MenuItem>
+          <MenuItem eventKey="6" onClick={this.handleClick}>/r/AcidHouse</MenuItem>
+          <MenuItem eventKey="7" onClick={this.handleClick}>/r/Electropop</MenuItem>
+          <MenuItem eventKey="8" onClick={this.handleClick}>/r/electronicmusic</MenuItem>
+          <MenuItem eventKey="9" onClick={this.handleClick}>/r/darkstep</MenuItem>
+          <MenuItem eventKey="10" onClick={this.handleClick}>/r/deephouse</MenuItem>
+          <MenuItem eventKey="11" onClick={this.handleClick}>/r/dubstep</MenuItem>
+          <MenuItem eventKey="12" onClick={this.handleClick}>/r/EDM</MenuItem>
+          <MenuItem eventKey="13" onClick={this.handleClick}>/r/EBM</MenuItem>
+          <MenuItem eventKey="14" onClick={this.handleClick}>/r/electronicdancemusic</MenuItem>
+          <MenuItem eventKey="15" onClick={this.handleClick}>/r/ElectronicJazz</MenuItem>
+          <MenuItem eventKey="16" onClick={this.handleClick}>/r/electrohouse</MenuItem>
+          <MenuItem eventKey="17" onClick={this.handleClick}>/r/electronicmagic</MenuItem>
+          <MenuItem eventKey="18" onClick={this.handleClick}>/r/Music</MenuItem>
         </SplitButton>
       </ButtonToolbar>
     )

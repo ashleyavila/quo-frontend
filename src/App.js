@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import SelectionBox from './SelectionBox';
-import $ from 'jquery';
 import './App.css';
 import axios from 'axios'
 
@@ -17,18 +16,18 @@ class App extends Component {
       spotifyApi.setAccessToken(token);
     }
     this.state = {
-      // state thing you want to set
       titles: [],
-      loggedIn: token ? true : false
+      loggedIn: token ? true : false,
+      selectedSub: "/r/Music"
     }
+
+    // Setters
+    this.updateSubState = this.updateSubState.bind(this);
   }
 
-  // var sub = 'Music'
-  // var str = 'https://www.reddit.com/r/' + sub + '/.json'
-
   // use for data fetching
-  componentDidMount = () => {
-    axios.get('https://www.reddit.com/r/frenchelectro/.json')
+  componentDidMount() {
+    axios.get('https://www.reddit.com' + this.state.selectedSub + '/.json')
       .then(res => {
         let threads = res.data.data.children
         let titles = threads.map(thread => thread.data.title)
@@ -51,6 +50,10 @@ class App extends Component {
     return hashParams;
   }
 
+  updateSubState(newSub) {
+    this.setState({selectedSub: newSub})
+  }
+
   render() {
     debugger
     let titles = this.state.titles.map(title => <p>{title}</p>)
@@ -58,9 +61,12 @@ class App extends Component {
       <div className="App">
         <Header />
         <a href='http://localhost:8888/login' > Login to Spotify </a>
-        <h1>{ this.state.loggedIn == true ? "logged in" : "not logged in" }</h1>
+        <h1>{ this.state.loggedIn === true ? "logged in" : "not logged in" }</h1>
         <a href='http://localhost:8888/playlists'> Get playlists </a>
-        <SelectionBox />
+        <SelectionBox 
+          subTitle={this.state.selectedSub} 
+          updateTitle={this.updateSubState}
+        />
         {titles}
       </div>
     );
