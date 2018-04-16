@@ -32,6 +32,10 @@ class App extends Component {
 
   // use for data fetching
   componentDidMount() {
+    this.pullDataFromReddit()
+  }
+
+  pullDataFromReddit() {
     axios.get('https://www.reddit.com' + this.state.selectedSub + '/.json')
       .then(res => {
         let threads = res.data.data.children
@@ -59,6 +63,7 @@ class App extends Component {
 
   createPlaylistCallback() {
     let _this = this;
+
     // create playlist
     spotifyApi.createPlaylist(this.state.user_id, {name: this.state.selectedSub}, function(err, data) {
       if(!err) 
@@ -88,7 +93,7 @@ class App extends Component {
   }
 
   updateSubState(newSub) {
-    this.setState({selectedSub: newSub}, () => this.componentDidMount())
+    this.setState({selectedSub: newSub}, () => this.pullDataFromReddit())
   }
 
   render() {
