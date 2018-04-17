@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let auth = !this.props.isLoggedOn ? (
       <a href='http://localhost:8888/login' > Login to Spotify </a>

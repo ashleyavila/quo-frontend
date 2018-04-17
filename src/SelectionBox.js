@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { ButtonToolbar, DropdownButton, MenuItem, Grid, Row, Col } from 'react-bootstrap';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class SelectionBox extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class SelectionBox extends Component {
         <Row className='selection-row'>
           <Col>
             <ButtonToolbar>
-              <DropdownButton bsStyle="default" bsSize="large" title={this.props.subTitle} ref="menu">
+              <DropdownButton bsStyle="default" bsSize="large" title={this.props.subTitle} ref="menu" id={`dropdown-basic`}>
                 <MenuItem onClick={this.handleClick}>/r/Music</MenuItem>
                 <MenuItem header>Electronic Music</MenuItem>
                 <MenuItem onClick={this.handleClick}>/r/AcidHouse</MenuItem>

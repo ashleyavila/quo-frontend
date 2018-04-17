@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Header from './Header';
 import SelectionBox from './SelectionBox';
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
+import { withAlert } from "react-alert";
 import SpotifyWebApi from 'spotify-web-api-js';
 import { Grid, Row, Col, ButtonToolbar, Button } from 'react-bootstrap';
 
@@ -10,8 +11,8 @@ const _ = require('lodash');
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const params = this.getHashParams();
 
     this.state = {
@@ -74,7 +75,7 @@ class App extends Component {
         // add songs
         Promise.all(track_uris).then(function (uris) {
           spotifyApi.addTracksToPlaylist(_this.state.user_id, playlist_id, uris.filter(x => x));
-        }).then(() => alert("DONE"));
+        }).then(_this.props.alert.success("It's ok now!"));
       }
     });
   }
@@ -99,10 +100,10 @@ class App extends Component {
           isLoggedOn={this.state.access_token !== undefined}
         />
         <Grid>
-          <Row class='instructions'>
+          <Row className='instructions'>
             <h4>Select a subreddit to see what users are currently recommending. Press 'Create Playlist' to generate a playlist in your Spotify.</h4>
           </Row>
-          <Row class='selectbox'>
+          <Row className='selectbox'>
             <Col>
               <SelectionBox
                 subTitle={this.state.selectedSub}
@@ -111,16 +112,16 @@ class App extends Component {
             </Col>
           </Row>
           <ButtonToolbar>
-            <Button class='playlist' bsSize='small' onClick={this.createPlaylistCallback} >
+            <Button className='playlist' bsSize='small' onClick={this.createPlaylistCallback} >
               Create Playlist
           </Button>
           </ButtonToolbar>
-          <h2 class='recommendation'>What users recommend:</h2>
-            {this.state.titles.map(title => <p>{title}</p>)}
+          <h2 className='recommendation'>What users recommend:</h2>
+            {this.state.titles.map((title,i) => <p key={i}>{title}</p>)}
         </Grid>
       </div>
     );
   }
 }
 
-export default App;
+export default withAlert(App);
