@@ -35,17 +35,21 @@ class App extends Component {
 
   // use for data fetching
   componentDidMount() {
-    axios.get('https://www.reddit.com' + this.state.selectedSub + '/.json')
-      .then(res => {
-        let threads = res.data.data.children
-        let titles = threads.map(thread => thread.data.title)
+    this.fetchRedditInfo()
+  }
 
-        let regMatch = /^\w[\w+\s*]+[-]+[\w+\s*|.|']+\w/igm;
-        this.setState({ titles: _.flatten((titles.map(title => title.match(regMatch)).filter(x => x))) })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  fetchRedditInfo() {
+    axios.get('https://www.reddit.com' + this.state.selectedSub + '/.json')
+    .then(res => {
+      let threads = res.data.data.children
+      let titles = threads.map(thread => thread.data.title)
+
+      let regMatch = /^\w[\w+\s*]+[-]+[\w+\s*|.|']+\w/igm;
+      this.setState({ titles: _.flatten((titles.map(title => title.match(regMatch)).filter(x => x))) })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   getHashParams() {
@@ -75,7 +79,9 @@ class App extends Component {
         // add songs
         Promise.all(track_uris).then(function (uris) {
           spotifyApi.addTracksToPlaylist(_this.state.user_id, playlist_id, uris.filter(x => x));
-        }).then(_this.props.alert.success("It's ok now!"));
+        }).then(_this.props.alert.success("Playlist created!"));
+      } else {
+        _this.props.alert.error("Failed. Click sign in!")
       }
     });
   }
@@ -90,7 +96,7 @@ class App extends Component {
   }
 
   updateSubState(newSub) {
-    this.setState({ selectedSub: newSub }, () => this.componentDidMount())
+    this.setState({ selectedSub: newSub }, () => this.fetchRedditInfo())
   }
 
   render() {
