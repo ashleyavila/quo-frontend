@@ -95,7 +95,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header 
+          isLoggedOn={this.state.access_token !== undefined}
+        />
         <Grid>
           <Row class='instructions'>
             <h4>Select a subreddit to see what users are currently recommending. Press 'Create Playlist' to generate a playlist in your Spotify.</h4>
@@ -109,13 +111,12 @@ class App extends Component {
             </Col>
           </Row>
           <ButtonToolbar>
-            <Button bsSize='large' onClick={this.createPlaylistCallback} >
+            <Button class='playlist' bsSize='small' onClick={this.createPlaylistCallback} >
               Create Playlist
           </Button>
           </ButtonToolbar>
-          <h2>What users recommend:</h2>
-          {/* <button class='playlist-button' onClick={this.createPlaylistCallback}>Create playlist</button> */}
-          {this.state.titles.map(title => <p>{title}</p>)}
+          <h2 class='recommendation'>What users recommend:</h2>
+            {this.state.titles.map(title => <p>{title}</p>)}
         </Grid>
       </div>
     );

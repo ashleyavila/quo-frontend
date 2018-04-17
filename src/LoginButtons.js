@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 import { ButtonToolbar } from 'react-bootstrap';
 
 class LoginButtons extends Component {
