@@ -2,9 +2,11 @@
   text-align: center;
   background-color: black;
   color: white;
+  font-family: 'Raleway', sans-serif;
 }
+
 .btn{
-  background-color: orange;
+  background-color: rgb(202, 202, 201);
 }
 
 .App-logo {
@@ -12,11 +14,33 @@
   height: 80px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.login {
+  padding-top: 10px;
+  text-align: right;
+  font-size: 1.5em;
   color: white;
+}
+
+.App-header {
+  background-color: black;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: white;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-size: 5em;
+}
+
+h2 {
+  padding-bottom: 15px;
+}
+
+.selection-row {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .App-title {
